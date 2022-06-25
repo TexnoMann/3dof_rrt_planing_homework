@@ -28,12 +28,12 @@ def trans_Jacobian_matrix(theta, l):
 
   return f.transpose()
 
-def get_angles(theta0, point, l):
+def get_angles(point, l, theta0: np.array = np.array([0,0,0])):
 
   k = 0
   alpha = 0.2
   point_init = get_point(theta0, l)[2]
-  e = point - point_init 
+  e = point - point_init
   theta = theta0
   while norm(e) > 10**(-5):
     theta = theta0 + alpha*trans_Jacobian_matrix(theta0, l) @ e
@@ -41,20 +41,20 @@ def get_angles(theta0, point, l):
     point_init = get_point(theta0, l)[2]
     e = point - point_init
     k += 1
-    print(k, e)
+    # print(k, e)
     if k>=1e6:
       return None
 
   return theta
 
-def get_angles2(theta0, point, l):
+def get_angles2(point, l, theta0: np.array = np.array([0, 0, 0])):
   init_theta = theta0
   for i in range(0, 50):
     theta0 = np.random.rand(theta0.shape[0])*np.pi-np.pi/2
     k = 0
     alpha = 0.2
     point_init = get_point(theta0, l)[2]
-    e = point - point_init 
+    e = point - point_init
     theta = theta0
     while norm(e) > 10**(-3):
       theta = theta0 + alpha*trans_Jacobian_matrix(theta0, l) @ e
@@ -62,10 +62,9 @@ def get_angles2(theta0, point, l):
       point_init = get_point(theta0, l)[2]
       e = point - point_init
       k += 1
-      print(k, e)
+      # print(k, e)
       if k>=5e3:
         break
     if norm(e) < 10**(-3):
       return theta
   return init_theta
-    
