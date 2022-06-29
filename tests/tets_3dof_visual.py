@@ -41,7 +41,7 @@ if __name__ == "__main__":
     time_start = time.time()
     while running:
         screen.fill((255, 255, 255))
-        
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -51,7 +51,7 @@ if __name__ == "__main__":
         # Check if rectangle collided with pos and if the left mouse button was pressed
         if pressed1:
             print("You have opened a chest!")
-            th = get_angles2(th, pos/SCALE_FACTOR, links_length)
+            th = get_angles2(pos/SCALE_FACTOR, links_length, th)
 
         if th is None:
             break
