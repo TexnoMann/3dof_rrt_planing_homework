@@ -54,7 +54,7 @@ class Chain:
 
 
 def check_line_circle_collision(line: Line, circle: Circle) -> bool:
-    dist = np.abs(line.A*circle.p[0] + line.B*circle.p[0] + line.C)/ np.sqrt(line.A**2 + line.B**2)
+    dist = np.abs(line.A*circle.p[0] + line.B*circle.p[1] + line.C)/ np.sqrt(line.A**2 + line.B**2)
     if circle.r >= dist:
         return True
     else:
@@ -62,16 +62,20 @@ def check_line_circle_collision(line: Line, circle: Circle) -> bool:
 
 def check_chain_circle_collision(chain: Chain, circle: Circle) -> bool:
     for line in chain.lines:
-        dist = np.abs(line.A*circle.p[0] + line.B*circle.p[0] + line.C)/ np.sqrt(line.A**2 + line.B**2)
-        if circle.r >= dist:
+        if check_line_circle_collision(line, circle):
             return True
+    return False
+
+def check_point_circle_collision(point: np.array, circle: Circle) -> bool:
+    if np.linalg.norm(point - circle.p) <= circle.r:
+        return True
     return False
 
 
 
 if __name__ == "__main__":
-    l1 = Line(np.array([-1.0, 1.0]), np.array([1.0, 1.0]))
-    c1 = Circle(np.array([0.0, 0.0]), 0.9)
+    l1 = Line(np.array([0.0, 0.0]), np.array([.9, 0.0]))
+    c1 = Circle(np.array([0.0, 0.0]), 1.0)
     result = check_line_circle_collision(l1, c1)
     print(result)
 
