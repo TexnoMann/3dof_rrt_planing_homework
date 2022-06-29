@@ -112,4 +112,3 @@ if __name__ == "__main__":
     RRT_model = RRT_plane(start, goal, np.array([1.6, 1.5]), 0.25)
     RRT_model.RRT_processe()
     # print(RRT_model.random_generate())
->>>>>>> 21173fa5f06f58c3e79ea40ab040a52ad230cc67
