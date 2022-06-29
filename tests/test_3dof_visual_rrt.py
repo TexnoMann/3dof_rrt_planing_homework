@@ -34,8 +34,8 @@ th = np.array([np.pi/4, np.pi/3, np.pi/4])
 if __name__ == "__main__":
 
 
-    map3Drand = Map(dim=3, obs_num=2,
-        obs_size_min=0.1, 
+    map3Drand = Map(dim=3, obs_num=3,
+        obs_size_min=0.2, 
         obs_size_max=0.4, 
         xinit=np.array([0.1, 0.3, 0.1]), 
         xgoal=np.array([1.5, 0.0, -0.5]), 
@@ -80,7 +80,7 @@ if __name__ == "__main__":
 
         pygame.display.flip()
         step+=1
-        time.sleep(0.3)
+        time.sleep(0.1)
 
         if step>=len(rrt.path):
             step=0
