@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import numpy.linalg as lng
 
-from .collision_checking import check_line_circle_collision, check_chain_circle_collision, check_point_circle_collision, Circle, Line, Chain
+from .collision_checking import check_line_circle_collision, check_chain_circle_tuple_collision, check_point_circle_collision, Circle, Line, Chain, BASE_POINT
 from .RRR_3dof_kinematic import *
 
 import matplotlib.pyplot as plt
@@ -26,8 +26,8 @@ class RRT:
         self.dimension = self.map.dimension
         self.prob = 0.1
         self.maxIter = maxIter
-        self.stepSize = 0.2
-        self.DISCRETE = 0.1
+        self.stepSize = 0.05
+        self.DISCRETE = 0.01
         self.path = []
         self.pathCost = float('inf')
 
@@ -235,15 +235,10 @@ class RRT:
                         new_best = True
         return ret
 
-    def _CollisionPoint(self, x): 
-        obs = self.map.obstacles
-        cart_x = get_point(x, self.map.links_length)
-        for ob in obs:
-            chain = Chain(tuple([np.array([0.0, 0.0])] +list(cart_x)))
-            if check_chain_circle_collision(chain, ob):
-                return True
-        # print('non collide')
-        return False
+    def _CollisionPoint(self, th): 
+        ch = Chain(tuple([BASE_POINT] +list(get_point(th, self.map.links_length))))
+        return check_chain_circle_tuple_collision(ch, self.map.obstacles)
+
     def _CollisionLine(self,x1,x2):
         dis = Node.distancexx(x1,x2)
         if dis<self.DISCRETE:

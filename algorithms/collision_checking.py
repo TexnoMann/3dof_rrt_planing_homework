@@ -3,6 +3,8 @@ from typing import Tuple
 from scipy.optimize import fsolve
 # from __future__ import division
 
+BASE_POINT = np.array([0.0, 0.0])
+
 class Line:
     def __init__(self, p1: np.array, p2: np.array):
         self.__p1 = p1
