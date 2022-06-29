@@ -48,23 +48,25 @@ def get_angles(point, l, theta0: np.array = np.array([0,0,0])):
   return theta
 
 def get_angles2(point, l, theta0: np.array = np.array([0, 0, 0])):
-  init_theta = theta0
-  for i in range(0, 50):
-    theta0 = np.random.rand(theta0.shape[0])*np.pi-np.pi/2
-    k = 0
-    alpha = 0.2
-    point_init = get_point(theta0, l)[2]
-    e = point - point_init
-    theta = theta0
-    while norm(e) > 10**(-3):
-      theta = theta0 + alpha*trans_Jacobian_matrix(theta0, l) @ e
-      theta0 = theta
-      point_init = get_point(theta0, l)[2]
-      e = point - point_init
-      k += 1
+    init_theta = theta0
+    for i in range(0, 50):
+        theta0 = np.random.rand(theta0.shape[0])*np.pi-np.pi/2
+        k = 0
+        alpha = 0.2
+        point_init = get_point(theta0, l)[2]
+        e = point - point_init
+        theta = theta0
+        state = False
+        while norm(e) > 10**(-3):
+            theta = theta0 + alpha*trans_Jacobian_matrix(theta0, l) @ e
+            theta0 = theta
+            point_init = get_point(theta0, l)[2]
+            e = point - point_init
+            k += 1
       # print(k, e)
-      if k>=5e3:
-        break
-    if norm(e) < 10**(-3):
-      return theta
-  return init_theta
+            if k>=5e3:
+                break
+        if norm(e) < 10**(-3):
+            state = True
+            return theta, state
+    return init_theta, state
