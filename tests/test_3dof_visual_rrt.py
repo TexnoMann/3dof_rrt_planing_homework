@@ -37,21 +37,12 @@ th = np.array([np.pi/4, np.pi/3, np.pi/4])
 if __name__ == "__main__":
 
 
-<<<<<<< HEAD
     map3Drand = Map(dim=3, obs_num=2,
         obs_size_min=0.1,
         obs_size_max=0.75,
         xinit=np.array([0.1, 0.3, 0.1]),
         xgoal=np.array([1.5, 0.0, -0.5]),
         field_range = np.array([-np.pi , np.pi]),
-=======
-    map3Drand = Map(dim=3, obs_num=3,
-        obs_size_min=0.2, 
-        obs_size_max=0.4, 
-        xinit=np.array([0.1, 0.3, 0.1]), 
-        xgoal=np.array([1.5, 0.0, -0.5]), 
-        field_range = np.array([-np.pi , np.pi]), 
->>>>>>> af32195eeffac54cd2891554e22d8c59541b3628
         links_length=LINK_LENGHT
     )
 
@@ -68,19 +59,16 @@ if __name__ == "__main__":
     goal_point = Circle(points[-1], 0.025)
 
 
-    print(rrt.path)
-    print(len(rrt.path))
-    print(rrt.path[5])
+    # print(rrt.path)
 
     fig = plt.figure()
     ax = plt.axes(projection='3d')
     ax.set_xlabel('theta_0')
-    ax.set_xlabel('theta_1')
-    ax.set_xlabel('theta_2')
+    ax.set_ylabel('theta_1')
+    ax.set_zlabel('theta_2')
     ax.scatter(rrt.path[0][0], rrt.path[0][1], rrt.path[0][2], label='Start point')
     for i in range(len(rrt.path)-1):
         line = np.array([rrt.path[i], rrt.path[i+1]])
-        print(line)
         ax.plot(line[:,0], line[:,1], line[:,2])
     ax.scatter(rrt.path[-1][0], rrt.path[-1][1], rrt.path[-1][2], label='Goal point')
     ax.legend()
@@ -115,7 +103,7 @@ if __name__ == "__main__":
 
         pygame.display.flip()
         step+=1
-        time.sleep(0.1)
+        time.sleep(0.3)
 
         if step>=len(rrt.path):
             step=0
