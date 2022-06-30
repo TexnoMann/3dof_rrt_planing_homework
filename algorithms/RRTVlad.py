@@ -27,7 +27,7 @@ class RRT:
         self.prob = 0.1
         self.maxIter = maxIter
         self.stepSize = 0.05
-        self.DISCRETE = 0.01
+        self.DISCRETE = 0.005
         self.path = []
         self.pathCost = float('inf')
 
