@@ -185,5 +185,5 @@ if __name__ == "__main__":
     RRT_model = RRT_plane(start, goal, np.array([[1.5, 0.5],[2.5, 1.75],[0.8, 2.6]]), [0.45, 0.25, 0.45])
     # RRT_model = RRT_plane(start, goal, np.array([[0.8, 2.6]]), [0.45])
     RRT_model.RRT_processe()
+
     plt.show()
-    # print(RRT_model.random_generate())
